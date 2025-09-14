@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>LIBRARY RAT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body style="background-color: black">
+    <nav class="navbar navbar-expand-lg" style="background-color: yellow">
+      <div class="container-fluid">
+        <a href="#" class="navbar-brand d-flex align-items-center mb-0">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoalzNQ2gyo0CmdOtYMhMqhJDRuVAmGGJ7dA&s" alt="logo" width="50" height="50" class="d-inline-block align-text-top"/>
+             <h1>LIBRARY RAT</h1></p>
+        </a>
+
+        <ul class="navbar-nav ms-auto flex-row">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/recommend">Recommend</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-white mt-5"> Users most preferred books</h1>
+                <form action="/recommend_books" method="post">
+                    <input type="text" class="form-control" placeholder="Enter Book Name" aria-label="Username" aria-describedby="basic-addon1" name="User_input"><br>
+                    <input type="submit"class="btn btn-warning" value="Recommend">
+                </form>
+            </div>
+            {% if data %}
+            {% for j in data %}
+                <div class="col-3 d-flex align-items-stretch" style="margin-top: 50px;">
+                <div class="card h-100" style="width: 18rem; background-color: black;" >
+                  <div class="card">
+                      <div class="card-body" style="background-color: black;" >
+                        <img src="{{j[2]}}" class="card-img-top" alt="..." style="height:200px; object-fit:contain; background-color:rgb(0, 0, 0); padding:10px;">
+                        <h5 style="color: aliceblue;"> {{j[0]}} </h5>
+                        <p style="color: aliceblue;">By: {{j[1]}} </p>
+
+
+                       </div>
+                   </div>
+                 </div>
+              </div>
+
+            {% endfor %}
+              
+            
+                
+            
+            {% endif %}
+            
+
+            
+            
+            
+            
+
+        </div>
+
+    </div>
+  </body>
+</html>
