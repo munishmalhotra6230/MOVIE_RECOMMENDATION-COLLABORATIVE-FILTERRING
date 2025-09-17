@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,jsonify
 import os 
 import pickle
 import pandas as pd
@@ -36,6 +36,13 @@ def reccomend_books():
 @ app.route('/about')
 def about():
     return render_template('about.html')
+@ app.route('/suggest')
+def suggest():
+    query=request.args.get("q","").lower()
+    if not query:
+        return(jsonify([]))
+    matches=[x for x in pt.index if query in x.lower()]
+    return jsonify(matches[:10])
 
 if __name__ == '__main__':
     app.run(debug=True)
