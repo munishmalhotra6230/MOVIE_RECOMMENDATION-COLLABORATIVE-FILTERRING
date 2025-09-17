@@ -39,7 +39,8 @@
             <div class="col-12">
                 <h1 class="text-white mt-5"> Users most preferred books</h1>
                 <form action="/recommend_books" method="post">
-                    <input type="text" class="form-control" placeholder="Enter Book Name" aria-label="Username" aria-describedby="basic-addon1" name="User_input"><br>
+                    <input type="text" id="searchbox" class="form-control" placeholder="Enter Book Name" aria-label="Username" aria-describedby="basic-addon1" name="User_input"><br>
+                    <div id="suggestions" style="background:white; color:black; position:absolute; z-index:1000; width:50%;"></div>
                     <input type="submit"class="btn btn-warning" value="Recommend">
                 </form>
             </div>
@@ -75,5 +76,26 @@
         </div>
 
     </div>
+    <script>
+      document.getElementById("searchbox").addEventListener("input", function() {
+        var query = this.value;
+        if (query.length === 0) {
+          document.getElementById("suggestions").innerHTML = "";
+          return;
+        }
+        fetch("/suggest?q=" + query)
+          .then(response => response.json())
+          .then(data => {
+            var suggestions = data.map(item => `<div class="suggestion-item" style="padding:5px; cursor:pointer;">${item}</div>`).join("");
+            document.getElementById("suggestions").innerHTML = suggestions;
+            document.querySelectorAll(".suggestion-item").forEach(item => {
+              item.addEventListener("click", function() {
+                document.getElementById("searchbox").value = this.textContent;
+                document.getElementById("suggestions").innerHTML = "";
+              });
+            });
+          });
+      });
+    </script>
   </body>
 </html>
